@@ -15,10 +15,10 @@ why-wechat-printer
 ### 自定义版本
 - PHP - 后台服务器端
   - 修改代码中和SAE相关部分，满足实际开发环境需要。
-  - 将php文件夹放在服务器中，假设服务器地址为：http://yoursite.com。
+  - 将php文件夹放在服务器中，假设服务器地址为：http://yoursite.com 。
   - php文件夹下有两个目录，pcapi为打印机端调用的接口，wxapi为微信端调用的接口。
   - 通过`initPrinters`函数初始化打印机的随机编号数据库。
-  - 在微信公众平台设置开发者模式，url为http://yoursite.com/wxapi，key为why。
+  - 在微信公众平台设置开发者模式，url为http://yoursite.com/wxapi ，key为why。
 
 
 - C# - 打印客户端
