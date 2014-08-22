@@ -3,7 +3,7 @@ why-wechat-printer
 基于C#和PHP的微信打印机
 
 
-# 使用方法：
+### 使用方法：
 源码基于SAE(Sina App Engine)开发，数据库调用等相关内容均为`SaeMysql`相关内容，如有自定义的必要可以修改相关代码。
 
 
@@ -15,7 +15,7 @@ why-wechat-printer
 
 自定义版本
 ==========
-## PHP - 后台服务器端
+#### PHP - 后台服务器端
 
 - 修改代码中和SAE相关部分，满足实际开发环境需要。
 - 将php文件夹放在服务器中，假设服务器地址为：http://yoursite.com。
@@ -24,7 +24,7 @@ why-wechat-printer
 - 在微信公众平台设置开发者模式，url为http://yoursite.com/wxapi，key为why。
 
 
-## C# - 打印客户端
+#### C# - 打印客户端
 
 - 修改WxPrinter中定义的`API_URL`变量，将地址改为自己的服务器地址。
 
