@@ -159,13 +159,6 @@ namespace WeixinPrinter
                 }
             }
 
-            // 如果按下的是F2，则显示设置页面
-            if (keyData == Keys.F2)
-            {
-                SettingPage sp = new SettingPage();
-                sp.ShowDialog();
-            }
-
             return false;
         }
 
