@@ -15,18 +15,26 @@ include "../sae_tool.php";
 switch ($_GET['action'])
 {
 
-	// 获取一个随机的打印码
+    // 注册打印机
+    case "add_printer":
+        $uid = $_POST['uid'];
+        SaeTool::addPrinter($uid);
+        $new_code = SaeTool::getPrintCode($uid);
+        echo $new_code;
+        break;
+
+    // 获取一个随机的打印码
+    case "reset_code":
+        $uid = $_POST['uid'];
+        $new_code = SaeTool::getPrintCode($uid);
+        echo $new_code;
+        break;
+
+	// 获取需要打印的图片任务
 	case "get_task":
 		$print_code = $_POST['print_code'];
 		$img_url = SaeTool::getTaskImage($print_code);
 		echo $img_url;
-		break;
-
-	// 获取一个随机的打印码
-	case "reset_code":
-		$old_code = $_POST['print_code'];
-		$new_code = SaeTool::resetPrintCode($old_code);
-		echo $new_code;
 		break;
 
 	default:

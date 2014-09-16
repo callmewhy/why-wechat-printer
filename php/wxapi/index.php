@@ -27,7 +27,10 @@ $weObj = $weObj->getRev();
 $fromUserName = $weObj->getRevFrom();  
 
 //接受到的微信的类型
-$revType = $weObj->getRevType();        
+$revType = $weObj->getRevType();
+
+
+$welcomeMsg = "欢迎使用微信打印机！\n请按照以下步骤打印照片\n1.发送图片\n2.发送打印码\n稍等片刻后照片就打印好了\n快来发送图片试试吧\n提示：输入任意文字取消打印";
  
 
 switch($revType) {
@@ -43,10 +46,11 @@ switch($revType) {
             //如果发送的是打印码，则更新数据库的打印码
             SaeTool::UpdatePrintCode($fromUserName,$revContent);
             $weObj->text("打印指令已经发出！请等候打印完成")->reply();
+        }else{
+            SaeTool::ClearPrintCode($fromUserName);
+            //如果不是，则提示一下
+            $weObj->text($welcomeMsg)->reply();
         }
-
-        //如果不是，则提示一下
-        $weObj->text("欢迎使用微信打印机！\n请按照以下步骤打印照片\n1.发送图片\n2.发送打印码\n稍等片刻后照片就打印好了\n快来发送图片试试吧")->reply();
         break;
 
 
@@ -73,9 +77,9 @@ switch($revType) {
         break;
 
     default:
-        $weObj->text("欢迎使用微信打印机！")->reply();
+        $weObj->text($welcomeMsg)->reply();
 
 }
 
 
-$weObj->text(SaeTool::Log())->reply();
+$weObj->text($welcomeMsg)->reply();
