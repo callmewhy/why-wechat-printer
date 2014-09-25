@@ -18,10 +18,10 @@ namespace WeixinPrinter
         WxPrinter myWxPrinter;
         string printPath = "";
 
-        int MARGIN_LEFT = 20;
-        int MARGIN_RIGHT = 20;
-        int MARGIN_TOP = 20;
-        int MARGIN_BOTTOM = 20;
+        int MARGIN_LEFT = 0;
+        int MARGIN_RIGHT = 0;
+        int MARGIN_TOP = 0;
+        int MARGIN_BOTTOM = 0;
 
         public PrintService(WxPrinter wxPrinter)
         {
@@ -36,7 +36,7 @@ namespace WeixinPrinter
 
             PrintController printController = new StandardPrintController();
             printDocument.PrintController = printController;
-            printDocument.DefaultPageSettings.PaperSize = new PaperSize("L 74X105mm", 291, 413);
+            printDocument.DefaultPageSettings.PaperSize = new PaperSize("L 88X125mm", 330, 460);
             printDocument.DefaultPageSettings.Margins = new Margins(MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, MARGIN_BOTTOM);
             //打印开始前
             printDocument.BeginPrint += new PrintEventHandler(printDocument_BeginPrint);
@@ -102,8 +102,17 @@ namespace WeixinPrinter
             }
 
 
+            Console.WriteLine("======================================");
+            Console.WriteLine(e.MarginBounds);
+            Console.WriteLine(newX + " - " + newY + " - " + newWidth + " - " + newHeight);
+            Console.WriteLine("======================================");
+
+            
+
+
             //将图像缩放到屏幕中心的位置
             e.Graphics.DrawImage(img, new Rectangle(newX, newY, newWidth, newHeight), new Rectangle(0, 0, img.Width, img.Height), GraphicsUnit.Pixel);
+            
             img.Dispose();
 
         }

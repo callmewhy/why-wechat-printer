@@ -35,8 +35,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\Project\微信打印机\WeixinPrinter\WeixinPrinter\bin\x86\Release\WeixinPrinter.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Project\微信打印机\WeixinPrinter\WeixinPrinter\bin\x86\Release\WeixinPrinter.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "WeixinPrinter\WeixinPrinter\bin\Debug\WeixinPrinter.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "WeixinPrinter\WeixinPrinter\bin\Debug\WeixinPrinter.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 ; 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”
 
 [Icons]
