@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.IO;
+
 
 namespace WeixinPrinter
 {
@@ -35,12 +38,14 @@ namespace WeixinPrinter
 
             wxPrinter = new WxPrinter(this,uuid);
 
-            rPrintCodeLabel.Text = Properties.Settings.Default.print_code;
+            codeLabel.Text = Properties.Settings.Default.print_code;
 
             //开始监测打印任务
             wxPrinter.startCheckTask();
 
             CheckForIllegalCrossThreadCalls = false;
+
+            switchToFullScreen();
         }
 
 
@@ -72,12 +77,12 @@ namespace WeixinPrinter
             wxPrinter.resetPrintCode();
             string print_code = Properties.Settings.Default.print_code;
             //显示打印码
-            rPrintCodeLabel.Text = print_code;
+            codeLabel.Text = print_code;
         }
 
 
         //---------- 适配 start ----------
-        // 切换到全屏显示
+        // 切换到正常显示
         private void switchToNomalScreen()
         {
             this.FormBorderStyle = FormBorderStyle.Sizable;
@@ -85,7 +90,7 @@ namespace WeixinPrinter
             adjustViews();
         }
 
-        // 切换到正常显示
+        // 切换到全屏显示
         private void switchToFullScreen()
         {
             this.FormBorderStyle = FormBorderStyle.None;
@@ -104,51 +109,28 @@ namespace WeixinPrinter
 
             //----- 左侧适配 -----//
             // 1.左侧图片展示
-            int leftX = 0;
-            int leftY = 0;
-            int leftWidth = formHeight * 7 / 5;
-            int leftHeight = formHeight;
-            lPanel.SetBounds(leftX, leftY, leftWidth, leftHeight);
-
-            // 1.1左侧展示图片，坐标是lPanel的相对坐标
-            int leftPicX = padding;
-            int leftPicY = padding;
-            int leftPicWidth = leftWidth - padding * 2;
-            int leftPicHeight = leftHeight - padding * 2;
-            lDetailPictrueBox.SetBounds(leftPicX, leftPicY, leftPicWidth, leftPicHeight);
-
+            int leftX = padding;
+            int leftY = padding;
+            int leftWidth = formWidth * 1500 / 1920 - padding * 2;
+            int leftHeight = formHeight - padding * 2;
+            lDetailPictrueBox.SetBounds(leftX, leftY, leftWidth, leftHeight);
 
             //----- 右侧适配 -----//
-            // 2.右侧Panel
-            int rightX = leftWidth;
-            int rightY = leftY;
-            int rightWidth = formWidth - leftWidth;
-            int rightHeight = formHeight;
-            rPanel.SetBounds(rightX, rightY, rightWidth, rightHeight);
-
-
             // 2.1二维码图片，坐标是rPanel的相对坐标
-            int qrPicX = padding;
-            int qrPicY = padding;
-            int qrPicWidth = rightWidth - padding * 2;
-            int qrPicHeight = qrPicWidth;
+            int qrPicX = formWidth * 1550 / 1920;
+            int qrPicY = formHeight * 724 / 1080;
+            int qrPicWidth = formWidth * 324 / 1920;
+            int qrPicHeight = formHeight * 324 / 1080;
             rQRcodePictrueBox.SetBounds(qrPicX, qrPicY, qrPicWidth, qrPicHeight);
             
-            // 2.2右下角的背景图片，上面是文字的内容，坐标是rPanel的相对坐标
-            int introPictureX = padding;
-            int introPictureY = qrPicY + qrPicHeight + padding;
-            int introPictureWidth = qrPicWidth;
-            int introPictureHeight = formHeight - padding - introPictureY;
-            rIntroPicture.SetBounds(introPictureX, introPictureY, introPictureWidth, introPictureHeight);
-
             // 2.3打印码，坐标是rPanel的相对坐标
-            int printCodeX = padding;
-            int printCodeY = introPictureY + introPictureHeight / 7 + padding;
-            int printCodeWidth = qrPicWidth;
-            int printCodeHeight = introPictureY / 5;
-            rPrintCodeLabel.SetBounds(printCodeX, printCodeY, printCodeWidth, printCodeHeight);
-
-           
+            int printCodeX = formWidth * 1530 / 1920;
+            int printCodeY = formHeight * 258 / 1080;
+            int printCodeWidth = formWidth * 360 / 1920;
+            int printCodeHeight = formHeight * 70 / 1080;
+            codeLabel.SetBounds(printCodeX, printCodeY, printCodeWidth, printCodeHeight);
+            Font font = new Font("微软雅黑", printCodeHeight / 2);
+            codeLabel.Font = font;
         }
 
         //---------- 监听 start ----------
@@ -176,6 +158,44 @@ namespace WeixinPrinter
         private void HomeForm_Shown(object sender, EventArgs e)
         {
             adjustViews();
+        }
+
+        private void rQRcodePictrueBox_Click(object sender, EventArgs e)
+        {
+            string filePath; //文件路径  
+            string fileName; //文件名称  
+            string fileExtension;//文件后缀名  
+            string[] strExtension = new string[] { ".gif", ".jpg", ".jpeg", ".png" };
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();//实例化一个对象  
+
+
+            //InitialDirectory 默认打开文件夹的位置  
+            openFileDialog1.InitialDirectory = "d:\\";
+            //Filter 允许打开文件的格式  显示在Dialg中的Files of Type  
+            openFileDialog1.Filter = "All files (*.*)|*.*";
+            //显示在Dialg中的Files of Type的选择  
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.Title = "请选择二维码图片地址";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //文件路径 和文件名字  
+                filePath = openFileDialog1.FileName;
+                fileName = Path.GetFileName(filePath);
+                // 获取文件后缀  
+                fileExtension = Path.GetExtension(filePath);
+
+                if (!strExtension.Contains(fileExtension.ToLower()))//验证读取文件的格式，设置为只能读取以下几种格式的图片  
+                {
+                    MessageBox.Show("仅打开.gif, .jpeg, .jpg, .png格式的图片！");
+                }
+                else
+                {
+                    Properties.Settings.Default.qrcode_location = filePath;
+                    Properties.Settings.Default.Save();
+                    setQrCodeImage();
+                }
+            }  
         }
 
     }

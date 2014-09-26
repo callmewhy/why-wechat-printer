@@ -63,6 +63,16 @@ namespace WeixinPrinter.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap back_image {
+            get {
+                object obj = ResourceManager.GetObject("back_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap default_image {
             get {
                 object obj = ResourceManager.GetObject("default_image", resourceCulture);
@@ -73,29 +83,9 @@ namespace WeixinPrinter.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap intro {
-            get {
-                object obj = ResourceManager.GetObject("intro", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap qrcode {
             get {
                 object obj = ResourceManager.GetObject("qrcode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap retina_wood {
-            get {
-                object obj = ResourceManager.GetObject("retina_wood", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

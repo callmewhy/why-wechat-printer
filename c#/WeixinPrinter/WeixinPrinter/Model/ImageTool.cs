@@ -34,7 +34,7 @@ namespace WeixinPrinter
         //开始监测服务器
         public void startCheckTask()
         {
-            checkImageWorker.RunWorkerAsync(); 
+            checkImageWorker.RunWorkerAsync();
         }
 
         //---------- 私有方法 ----------
@@ -59,7 +59,7 @@ namespace WeixinPrinter
                     }
                     catch (Exception ex)
                     {
-                        logLog("get image url but --error-- "+ex);
+                        logLog("get image url but --error-- " + ex);
                     }
                 }
                 //休息一段时间继续监测
@@ -111,10 +111,7 @@ namespace WeixinPrinter
         //---------- 测试函数 ----------
         public static void logLog(String logStr)
         {
-            Console.WriteLine("\n-----"+DateTime.Now+"-----\n" + logStr + "\n-----WHY-----\n");
+            Console.WriteLine("\n-----" + DateTime.Now + "-----\n" + logStr + "\n-----WHY-----\n");
         }
-
-
-    
     }
 }
