@@ -7,6 +7,10 @@ why-wechat-printer
 麻烦使用这个软件的同学和我说一声，应用尚有成熟，不足之处还望告知，谢谢。
 
 
+## 效果截图：
+![](http://whyother.qiniudn.com/QQ%E6%88%AA%E5%9B%BE20140926141741.png)
+
+
 ## 使用方法：
 源码基于SAE(Sina App Engine)开发，数据库调用等相关内容均为`SaeMysql`相关内容，如有自定义的必要可以修改相关代码。
 
